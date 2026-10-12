@@ -168,3 +168,9 @@ Added `/qr-barcode-types` from the supplied `Qr& Barcode_ all types_page.svg` (1
 - Document, media, payment and routing categories encode supplied content or links. They do not add hosting, payment processing, scan analytics or server-side routing services. Existing service placeholders documented above remain applicable.
 
 Validation: production build and TypeScript; all 81 exported Choose links and their assets; identical shared navbar markup on five routes apart from active state; 135 barcode/font/height spacing cases. Browser visual verification remains unavailable in this environment.
+
+### Full-width types-page hero background
+
+The hero SVG now stretches to its CSS background viewport instead of preserving its original 1442 × 266 aspect ratio and creating blank side margins on wide screens. Desktop and mobile both use `background-size: 100% 100%`. Heading placement, card widths and navbar sizing are unchanged.
+
+Validation: production build and TypeScript; SVG viewport rendering at 320, 650, 1000, 1440, 1905 and 2560 px widths confirms opaque artwork reaches both edges. Full-page browser visual verification remains unavailable.

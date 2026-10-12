@@ -50,7 +50,7 @@
  .code-types-group-heading{margin-bottom:28px}
 }
 @media(max-width:650px){
- .code-types-hero{min-height:250px;padding:42px 20px 36px;background-size:auto 100%}
+ .code-types-hero{min-height:250px;padding:42px 20px 36px}
  .code-types-hero h1{font-size:28px;letter-spacing:-.6px}
  .code-types-hero p,.code-types-group-heading p{font-size:13px;line-height:1.6}
  .code-types-catalog{width:calc(100% - 40px);padding-top:30px;padding-bottom:56px}
