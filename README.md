@@ -88,14 +88,15 @@ Validation: production build/TypeScript passed; browser screenshots checked for 
 Validation: production build and TypeScript passed. Audited all six routes (home, QR generator, barcode generator, blog, login and signup) at 1920, 1440, 768, 390 and 320 px: no horizontal document overflow, broken images or browser errors. Visually reviewed desktop and phone screenshots, and checked the revised step artwork and background boundaries. This pass covers layout and background presentation; existing service limitations above still apply.
 
 
-### Shared responsive section spacing
+### Compact responsive layout (ME-QR spacing reference)
 
-`app/responsive-layout.css` now owns the page gutters. Header, hero, generator panels, steps, information cards, type grids, app banner, testimonials, FAQ, blog and footer align to one fluid container instead of separate fixed artboard widths. The standalone blog uses the same spacing.
+`app/responsive-layout.css` owns the shared page gutters and section spacing. Header, hero, generator panels, steps, information cards, type grids, app banner, testimonials, FAQ, blog and footer align consistently. The standalone blog uses the same spacing.
 
-- Side margins use `clamp(16px, 3vw, 80px)`: 16px on narrow phones, about 23px at 768px, 43px at 1440px and 58px at 1920px.
-- Wide displays can use their available width; the old 1107–1344px section caps no longer create oversized, mismatched outer gaps.
-- Generator columns resize within the wider panel, then retain their tablet and phone stacking. Blog images preserve their aspect ratio as cards resize.
-- Navigation switches to the compact menu at 1439px to keep all links inside the viewport.
-- Account forms keep a readable width and share the phone gutters.
+- Side margins use `clamp(12px, 2vw, 28px)`: 12px on phones, about 15px at 768px, and a maximum of 28px on desktop.
+- Section padding scales between 28px and 48px. Fixed artboard section heights and redundant margins no longer reserve empty space.
+- Generator panels fit their content, with a bounded scrollable type list, responsive template columns and shorter video thumbnails. Existing shared generation/customization behavior is retained.
+- Information-card backgrounds fill the entire card. Illustrations fit inside compact desktop cards and stack beneath the text on phones.
+- Navigation switches to the compact menu below 1440px to avoid horizontal overflow.
+- Account forms keep their readable width and share the phone gutters.
 
-Validation: production build and TypeScript passed. Checked section alignment while resizing the public pages from 320px through 2560px, plus login/signup layouts at desktop, tablet and phone widths. Follow-up checks passed at both sides of the navigation breakpoint, including menu opening/closing. All checked content containers align to the shared gutter; no horizontal document overflow or browser errors remain in those checks.
+Validation: production build and TypeScript passed. Checked all six routes in 40 viewport cases from 320px to 2560px for aligned section edges, horizontal overflow, missing images, browser errors and clipped generator columns. Follow-up illustration checks passed on both generator pages at 1920, 1366, 1024, 768, 390 and 320px, with no artwork cropping or text overlap.
