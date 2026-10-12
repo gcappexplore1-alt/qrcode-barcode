@@ -86,17 +86,3 @@ Validation: production build/TypeScript passed; browser screenshots checked for 
 - Both barcode pages still use the same `BarcodeGenerator` component; customization and downloads remain shared.
 
 Validation: production build and TypeScript passed. Audited all six routes (home, QR generator, barcode generator, blog, login and signup) at 1920, 1440, 768, 390 and 320 px: no horizontal document overflow, broken images or browser errors. Visually reviewed desktop and phone screenshots, and checked the revised step artwork and background boundaries. This pass covers layout and background presentation; existing service limitations above still apply.
-
-
-### Compact responsive layout (ME-QR spacing reference)
-
-`app/responsive-layout.css` owns the shared page gutters and section spacing. Header, hero, generator panels, steps, information cards, type grids, app banner, testimonials, FAQ, blog and footer align consistently. The standalone blog uses the same spacing.
-
-- Side margins use `clamp(12px, 2vw, 28px)`: 12px on phones, about 15px at 768px, and a maximum of 28px on desktop.
-- Section padding scales between 28px and 48px. Fixed artboard section heights and redundant margins no longer reserve empty space.
-- Generator panels fit their content, with a bounded scrollable type list, responsive template columns and shorter video thumbnails. Existing shared generation/customization behavior is retained.
-- Information-card backgrounds fill the entire card. Illustrations fit inside compact desktop cards and stack beneath the text on phones.
-- Navigation switches to the compact menu below 1440px to avoid horizontal overflow.
-- Account forms keep their readable width and share the phone gutters.
-
-Validation: production build and TypeScript passed. Checked all six routes in 40 viewport cases from 320px to 2560px for aligned section edges, horizontal overflow, missing images, browser errors and clipped generator columns. Follow-up illustration checks passed on both generator pages at 1920, 1366, 1024, 768, 390 and 320px, with no artwork cropping or text overlap.
