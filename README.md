@@ -92,7 +92,8 @@ Validation: production build and TypeScript passed. Audited all six routes (home
 
 Open `/scanner` for the supplied 1440 × 3819 scanner design. Direct links
 `/scanner?mode=qr` and `/scanner?mode=barcode` select the corresponding tab.
-The header Scanner menu and footer scan links now open this page.
+The navbar Scanner link opens this page directly, without a submenu or dropdown.
+Footer scan links select the corresponding scanner mode.
 
 - Uses the supplied hero background and QR/barcode photos, exported as compact WebP assets.
 - Responsive three-mode scanner with image upload, drag-and-drop and camera capture.
@@ -118,3 +119,12 @@ inverted codes, and check mode filtering, invalid uploads and unsafe link reject
 Visual browser QA and live camera permission/device tests were unavailable in the
 implementation environment and still need to be checked on target devices.
 Existing service placeholders documented above remain applicable.
+
+### Scanner sizing and spacing update
+
+- Aligned the scanner card with the homepage's 1324 px maximum content width and desktop, tablet and mobile gutters.
+- Matched the homepage heading scale (48 / 40 / 34 / 28 px), introductory text, header-to-heading spacing and heading-to-panel gap.
+- Standardized scanner control sizes, panel padding and information-section spacing; information rows stack on phones.
+- Removed scanner-specific banner, FAQ and footer sizing so those shared components inherit the homepage layout. Removed the duplicate FAQ item margin.
+
+Validation: production build, TypeScript and static export passed. This update changes only scanner CSS and this documentation. Browser visual checks were unavailable in the implementation environment.
