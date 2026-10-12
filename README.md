@@ -156,3 +156,15 @@ Validation: production build and TypeScript passed; shared background declaratio
 Removed barcode-only navbar overrides so the QR and barcode generator pages use the same shared header: 80 px tall above 1000 px viewport width and 68 px on tablet/mobile. Logo dimensions, link spacing, account buttons and active-link styling now follow the shared responsive rules. The header explicitly uses the same font on every page, and the types-menu label stays constant when switching routes. Scanner remains a direct link without a dropdown.
 
 Validation: production build and TypeScript, matching exported header markup (apart from the active link), and a CSS audit of shared navbar styles. Browser visual verification remains unavailable in this environment.
+
+### QR & Barcode Types page
+
+Added `/qr-barcode-types` from the supplied `Qr& Barcode_ all types_page.svg` (1440 × 6716). The shared navbar now contains one direct **QR & Barcode Types** link with no submenu. Scanner remains a direct link. The shared 80 px desktop / 68 px mobile navbar sizing is preserved.
+
+- Ten QR categories contain 66 cards in the design's order, followed by all 15 barcode formats.
+- The page uses the supplied pale blue hero artwork, locally bundled Poppins fonts, existing colored icons, white cards and blue Choose buttons. At 1440 px the grid is 1224 px wide with four approximately 253 × 169 px cards per row. It reflows to three columns at 1000 px and two at 650 px.
+- Each Choose link opens the existing generator with its type selected. Barcode deep links now support the same `?type=` selection pattern as QR codes; unknown values keep the default format. No second generator implementation was added.
+- The existing footer is reused, and both footer type-directory links now reach the relevant section of the new page. Previous scanner, navbar and matching hero-background fixes are preserved.
+- Document, media, payment and routing categories encode supplied content or links. They do not add hosting, payment processing, scan analytics or server-side routing services. Existing service placeholders documented above remain applicable.
+
+Validation: production build and TypeScript; all 81 exported Choose links and their assets; identical shared navbar markup on five routes apart from active state; 135 barcode/font/height spacing cases. Browser visual verification remains unavailable in this environment.

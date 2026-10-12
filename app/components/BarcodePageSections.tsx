@@ -1,5 +1,5 @@
 "use client";
-import {barcodeTypes} from './BarcodeGenerator';
+import {barcodeTypes} from '../lib/barcode-types';
 export default function BarcodePageSections({selectedType,onChoose}:{selectedType:number;onChoose:(index:number)=>void}){
 return <><section className="three-steps barcode-steps" aria-labelledby="barcode-steps-title"><h2 id="barcode-steps-title">How To Create a Free Barcode in 3 Simple Steps</h2><ol className="steps-timeline">{[
 ['choose','Choose Barcode type','Choose a barcode format based on your data: EAN or UPC for product numbers, Code128 for inventory, or a supported two-dimensional format.'],
