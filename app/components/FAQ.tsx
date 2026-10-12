@@ -1,4 +1,5 @@
 "use client";
+import {Localized} from './i18n/LanguageProvider';
 import {useRef, useState} from 'react';
 import {ChevronDown} from 'lucide-react';
 
@@ -27,7 +28,7 @@ export default function FAQ({barcodeDefault=false}:{barcodeDefault?:boolean}){
  const [tab,setTab]=useState(barcodeDefault?1:0), [open,setOpen]=useState<number|null>(0);
  const tabs=useRef<Array<HTMLButtonElement|null>>([]);
  function select(index:number){setTab(index);setOpen(0);}
- return <section className="home-faq" id="faq" aria-labelledby="faq-heading">
+ return <Localized>{<section className="home-faq" id="faq" aria-labelledby="faq-heading">
   <div className="faq-inner">
    <h2 id="faq-heading"><span>Frequently</span> Asked Questions</h2>
    <div className="faq-tabs" role="tablist" aria-label="Frequently asked question categories">
@@ -47,5 +48,5 @@ export default function FAQ({barcodeDefault=false}:{barcodeDefault?:boolean}){
     </article>)}
    </div>)}
   </div>
- </section>;
+ </section>}</Localized>;
 }

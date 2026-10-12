@@ -10,7 +10,8 @@
     "test:barcode-spacing": "node tests/barcode-spacing.test.cjs",
     "test:scanner": "node tests/scanner.test.cjs",
     "prebuild": "node scripts/prepare-scanner.mjs",
-    "predev": "node scripts/prepare-scanner.mjs"
+    "predev": "node scripts/prepare-scanner.mjs",
+    "test:i18n": "node tests/i18n.test.cjs"
   },
   "dependencies": {
     "bwip-js": "^4.11.4",

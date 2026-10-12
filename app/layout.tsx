@@ -6,5 +6,7 @@ import "./barcode-generator-page.css";
 import "./site-background.css";
 import "./scanner-page.css";
 import "./code-types-page.css";
+import "./language.css";
+import {LanguageProvider} from "./components/i18n/LanguageProvider";
 export const metadata: Metadata = {title: "QR & Barcode — Generator", description: "Create, Scan, And Manage QR Codes And Barcodes — All In One Place", icons: {icon: "/assets/svg/Group 42404.svg"}};
-export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {return <html lang="en"><body>{children}</body></html>;}
+export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {return <html lang="en"><body><LanguageProvider>{children}</LanguageProvider></body></html>;}

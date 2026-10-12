@@ -1,4 +1,5 @@
 "use client";
+import {Localized} from './i18n/LanguageProvider';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {Barcode,Camera,CheckCircle2,Copy,Download,ExternalLink,ImagePlus,LoaderCircle,QrCode,ScanLine,UploadCloud,X} from 'lucide-react';
 import {imageFileError,safeScanURL,scanMode,type ScanMode,type ScanResult} from '../lib/scanner-utils';
@@ -79,7 +80,7 @@ export default function ScannerPanel(){
  }
  const link=result?safeScanURL(result.text):null;
  const typeLabel=mode==='qr'?'QR Code':mode==='barcode'?'Barcode':'QR or Barcode';
- return <div className="scanner-card" id="scanner">
+ return <Localized>{<div className="scanner-card" id="scanner">
   <div className="scanner-tabs" role="tablist" aria-label="Scanner mode">{modes.map(({id,label,Icon},index)=><button key={id} type="button" role="tab" id={'scan-tab-'+id} aria-selected={mode===id} aria-controls="scanner-panel" tabIndex={mode===id?0:-1} onClick={()=>chooseMode(id)} onKeyDown={event=>{let next=index;if(event.key==='ArrowRight')next=(index+1)%3;else if(event.key==='ArrowLeft')next=(index+2)%3;else if(event.key==='Home')next=0;else if(event.key==='End')next=2;else return;event.preventDefault();chooseMode(modes[next].id);document.getElementById('scan-tab-'+modes[next].id)?.focus();}}><Icon aria-hidden="true" size={28}/><span>{label}</span></button>)}</div>
   <div id="scanner-panel" role="tabpanel" aria-labelledby={'scan-tab-'+mode}>
    <p className="scanner-support">{mode==='qr'?'Scan website links, text, Wi-Fi details, contact information and more from a QR code.':<>Barcode support includes Code 128, Code 39, Code 93, EAN-8/13, UPC-A/E, ITF,<br className="scanner-desktop-break"/> Codabar and other formats supported by the browser/decoder.</>}</p>
@@ -98,5 +99,5 @@ export default function ScannerPanel(){
    {result&&<section className="scanner-result" aria-labelledby="scan-result-title"><div className="scanner-result-heading"><CheckCircle2 size={24}/><h2 id="scan-result-title" ref={resultHeading} tabIndex={-1}>Code scanned successfully</h2><span>{result.format}</span></div><pre>{result.text}</pre><div className="scanner-result-actions"><button onClick={async()=>{try{await navigator.clipboard.writeText(result.text);setNotice('Result copied.');}catch{setNotice('Copy is unavailable. Select the result text and copy it manually.');}}}><Copy size={17}/>Copy result</button>{link&&<a href={link} target="_blank" rel="noopener noreferrer"><ExternalLink size={17}/>Open link</a>}<button onClick={()=>{const url=URL.createObjectURL(new Blob([result.text],{type:'text/plain;charset=utf-8'}));const anchor=document.createElement('a');anchor.href=url;anchor.download='scan-result.txt';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}}><Download size={17}/>Save text</button><button onClick={reset}>Scan again</button></div><p className="scanner-result-note">Check the result before opening a link. Images and camera frames are processed on your device.</p></section>}
    {notice&&<p className="scanner-message" role="status">{notice}</p>}
   </div>
- </div>;
+ </div>}</Localized>;
 }

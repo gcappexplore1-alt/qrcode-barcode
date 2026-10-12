@@ -1,3 +1,4 @@
+import {Localized} from '../components/i18n/LanguageProvider';
 import type {CSSProperties} from 'react';
 import type {Metadata} from 'next';
 import SiteHeader from '../components/SiteHeader';
@@ -14,15 +15,15 @@ export const metadata:Metadata = {
 
 function TypeCard({name,icon,barcode=false}:{name:string;icon:string;barcode?:boolean}) {
  const label=codeTypeLabels[name]||name;
- return <article className="code-type-card">
+ return <Localized>{<article className="code-type-card">
   <div className="code-type-icon"><img src={icon} alt="" width="80" height="80" loading="lazy" style={{'--icon-size':`${catalogIconSizes[icon]||80}px`} as CSSProperties}/></div>
   <h3>{label}</h3>
   <a className="code-type-choose" href={`${barcode?'/barcode-generator':'/qr-code-generator'}?type=${encodeURIComponent(name)}`} aria-label={`Choose ${label} ${barcode?'barcode':'QR code'}`}>Choose</a>
- </article>;
+ </article>}</Localized>;
 }
 
 export default function CodeTypesPage() {
- return <div className="homepage code-types-page">
+ return <Localized>{<div className="homepage code-types-page">
   <SiteHeader active="types"/>
   <main>
    <section className="code-types-hero" aria-labelledby="code-types-title">
@@ -41,5 +42,5 @@ export default function CodeTypesPage() {
    </div>
   </main>
   <Footer/>
- </div>;
+ </div>}</Localized>;
 }

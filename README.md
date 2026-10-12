@@ -174,3 +174,17 @@ Validation: production build and TypeScript; all 81 exported Choose links and th
 The hero SVG now stretches to its CSS background viewport instead of preserving its original 1442 × 266 aspect ratio and creating blank side margins on wide screens. Desktop and mobile both use `background-size: 100% 100%`. Heading placement, card widths and navbar sizing are unchanged.
 
 Validation: production build and TypeScript; SVG viewport rendering at 320, 650, 1000, 1440, 1905 and 2560 px widths confirms opaque artwork reaches both edges. Full-page browser visual verification remains unavailable.
+
+### Functional site languages
+
+The supplied language selector design is implemented with round flags, native language names, a selected checkmark, keyboard navigation and a scrollable menu. Language controls in the shared header, footer and authentication pages use one preference. The header control stays accessible when the navigation collapses.
+
+- English (US), Arabic, Spanish, Spanish (Mexico), French, Indonesian, Portuguese (Brazil), Turkish, Bangla and Russian are available. Mexican Spanish includes regional wording.
+- Selecting a language updates page headings, navigation, generator controls, scanner messages, information sections, FAQs, type cards, authentication labels, accessibility labels and the browser title. All eight non-English base dictionaries contain 534 entries; Mexican Spanish inherits the complete Spanish dictionary with regional overrides. Dictionaries ship with the site and require no translation service or API key.
+- The choice is saved in local storage, restored on subsequent pages and reloads, and synchronized across tabs. If storage is blocked, selection still works for the current page. English is the default. Arabic sets the document language and right-to-left direction; technical inputs remain left-to-right.
+- User-entered data, QR payloads, decoded scan results, download formats, links and generator settings are preserved. Localization operates on React display text and accessibility attributes, not on the DOM or data models. User-facing barcode validation uses the translated invalid-content message.
+- English SVG heading artwork has live translated equivalents. Long translations can wrap, and navigation collapses earlier where needed while retaining the shared header height. Previous backgrounds, direct Scanner/Types links and scanner features are preserved. Product/standard names, sample data, template artwork and illustrative screenshots keep their original content.
+
+Run `npm run test:i18n` for dictionary completeness, interpolation, all 90 page/language renders, saved-preference checks and input/result preservation checks. Validation also includes a production build, TypeScript and static export. Browser interaction and visual QA are unavailable in this environment.
+
+Translation sources are in `app/lib/i18n/messages.json`, locale definitions in `locales.ts`, and Mexican Spanish overrides in `translate.ts`. New components should use the shared `Localized` boundary or `useLanguage().t`; mark user-owned display content with `translate="no"` and supply explicit option values for new controls.
