@@ -150,3 +150,9 @@ Validation: production build, TypeScript, static export, SVG asset references an
 The barcode and QR generator pages now share the same hero SVG, scaling, fade mask and underlying background colors in `app/site-background.css`. The continuous background also prevents a color seam where the hero fades into the next section. Generator controls and page sizing are unchanged.
 
 Validation: production build and TypeScript passed; shared background declarations verified. Browser visual verification remains unavailable in this environment.
+
+### Consistent generator navbar sizing
+
+Removed barcode-only navbar overrides so the QR and barcode generator pages use the same shared header: 80 px tall above 1000 px viewport width and 68 px on tablet/mobile. Logo dimensions, link spacing, account buttons and active-link styling now follow the shared responsive rules. The header explicitly uses the same font on every page, and the types-menu label stays constant when switching routes. Scanner remains a direct link without a dropdown.
+
+Validation: production build and TypeScript, matching exported header markup (apart from the active link), and a CSS audit of shared navbar styles. Browser visual verification remains unavailable in this environment.

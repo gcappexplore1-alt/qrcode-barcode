@@ -1,6 +1,5 @@
 /* Barcode reference: 1440 × 7261. Scoped to protect the home and QR pages. */
 .barcode-generator-page{background:#f9f9f9}
-.barcode-generator-page .home-header{height:90px}
 .barcode-generator-page .barcode-generator{padding:0;background:url('/assets/barcode-reference/hero-background.svg') center top/100% 1118px no-repeat}
 .barcode-generator-page .generator-heading{height:143px;margin:0;padding:30px 20px 24px;display:flex;flex-direction:column;align-items:center;gap:15px}
 .barcode-generator-page .generator-heading h1{width:870px;max-width:100%;line-height:1;margin:0}
@@ -118,7 +117,6 @@
  .barcode-generator-page .app-banner-artwork{margin-right:0}
 }
 @media(max-width:1000px){
- .barcode-generator-page .home-header{height:68px}
  .barcode-generator-page .generator-heading{height:auto;min-height:125px;padding:28px 24px;gap:14px}
  .barcode-generator-page .generator-panel{grid-template-columns:170px minmax(0,1fr);min-height:0;gap:24px}
  .barcode-generator-page .qr-preview-column{grid-column:2;max-width:360px;justify-self:center}
@@ -221,13 +219,6 @@
 @font-face{font-family:BarcodePoppins;src:url('/assets/barcode-reference/poppins-500.woff2') format('woff2');font-style:normal;font-weight:500;font-display:swap}
 @font-face{font-family:BarcodePoppins;src:url('/assets/barcode-reference/poppins-700.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
 .barcode-generator-page{font-family:BarcodePoppins,Arial,sans-serif}
-.barcode-generator-page .home-header-inner{gap:28px}
-.barcode-generator-page .home-brand{font-size:14px;gap:8px}
-.barcode-generator-page .home-brand img{width:32px;height:32px}
-.barcode-generator-page .home-navigation{gap:20px}
-.barcode-generator-page .home-nav-link,.barcode-generator-page .home-dropdown summary{font-size:13px;font-weight:500}
-.barcode-generator-page .home-nav-link.is-active::after{display:none}
-.barcode-generator-page .home-sign-in,.barcode-generator-page .home-sign-up{font-weight:500;min-width:100px}
 .barcode-generator-page .qr-types{padding:12px 10px 8px;border-radius:16px}
 .barcode-generator-page .qr-type-list{padding:0 8px 3px 0;height:830px;scrollbar-gutter:stable}
 .barcode-generator-page .all-types{margin-top:10px;font-weight:500}
@@ -258,17 +249,11 @@
 .barcode-generator-page .blog-card>p{font-size:13px;line-height:1.5}
 .barcode-generator-page .footer-about>p,.barcode-generator-page .footer-newsletter p{font-size:12px}
 @media(min-width:1251px){
- .barcode-generator-page .home-navigation{flex:1;justify-content:space-between;gap:16px}
- .barcode-generator-page .home-account{margin-left:auto}
  .barcode-generator-page .introduction-card{padding:60px 36px 53px}
  .barcode-generator-page .app-banner-copy{width:66%}
  .barcode-generator-page .app-banner-artwork{width:390px;margin-right:9%}
 }
 @media(min-width:1001px) and (max-width:1250px){
- .barcode-generator-page .home-navigation{gap:10px}
- .barcode-generator-page .home-nav-link,.barcode-generator-page .home-dropdown summary{font-size:10px}
- .barcode-generator-page .home-sign-in,.barcode-generator-page .home-sign-up{min-width:65px}
- .barcode-generator-page .home-header-inner{gap:16px}
  .barcode-generator-page .introduction-copy h2{font-size:24px;width:auto;max-width:100%;white-space:normal}
  .barcode-generator-page .introduction-description{font-size:12px}
  .barcode-generator-page .introduction-cta{min-width:180px}
@@ -278,8 +263,6 @@
  .barcode-generator-page .barcode-templates{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
  .barcode-generator-page .qr-preview-column{max-width:420px}
  .barcode-generator-page .introduction-copy h2{font-size:30px}
- .barcode-generator-page .home-navigation{gap:10px}
- .barcode-generator-page .home-nav-link,.barcode-generator-page .home-dropdown summary{font-size:14px}
  .barcode-generator-page .app-banner-phones{height:300px;object-fit:contain}
  .barcode-generator-page .app-banner-copy{width:66%}
  .barcode-generator-page .app-store-badges{gap:12px;flex-wrap:wrap}
@@ -318,4 +301,4 @@
  .barcode-generator-page .barcode-text-tabs button{min-width:0;flex:1;font-size:12px}
 }
 
-@media(min-width:1251px){.barcode-generator-page .qr-testimonials{padding-top:100px}.barcode-generator-page .home-faq{padding-bottom:20px}.barcode-generator-page .home-navigation{gap:24px}.barcode-generator-page .home-account{margin-left:20px}.barcode-generator-page .home-nav-link,.barcode-generator-page .home-dropdown summary{font-size:14px}}
+@media(min-width:1251px){.barcode-generator-page .qr-testimonials{padding-top:100px}.barcode-generator-page .home-faq{padding-bottom:20px}}
