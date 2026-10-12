@@ -144,3 +144,9 @@ At the desktop reference width:
 - Preserved scanning, uploads, result actions and the shared components used by the other pages.
 
 Validation: production build, TypeScript, static export, SVG asset references and a CSS measurement audit. Browser visual QA is unavailable in this environment, so rendered pixel matching and live device layout still need visual verification.
+
+### Matching generator hero backgrounds
+
+The barcode and QR generator pages now share the same hero SVG, scaling, fade mask and underlying background colors in `app/site-background.css`. The continuous background also prevents a color seam where the hero fades into the next section. Generator controls and page sizing are unchanged.
+
+Validation: production build and TypeScript passed; shared background declarations verified. Browser visual verification remains unavailable in this environment.
