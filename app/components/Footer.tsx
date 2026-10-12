@@ -5,7 +5,7 @@ import LanguageSelector from './i18n/LanguageSelector';
 import {ArrowUp} from 'lucide-react';
 const columns=[
  {title:'Product',items:[['QR CODE GENERATOR','/qr-code-generator'],['Barcode Generator','/#barcode-generator'],['QR CODE Scan','/scanner?mode=qr'],['Barcode Scan','/scanner?mode=barcode'],['QR Code all Types','/qr-barcode-types#popular'],['Barcode all Types','/qr-barcode-types#barcode-types']]},
- {title:'Legal',items:[['Pricing',''],['FAQ','#faq'],['Blog','#blog'],['Contact Us',''],['Mobile App','#mobile-app']]},
+ {title:'Legal',items:[['Pricing','/pricing'],['FAQ','/faq'],['Blog','/blog'],['Contact Us','/contact'],['Mobile App','/#mobile-app']]},
  {title:'Company',items:[['Privacy Policy',''],['Terms & Conditions',''],['Help Center','']]}
 ];
 export default function Footer(){

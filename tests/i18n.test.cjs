@@ -77,7 +77,7 @@ for(const {code}of locales){
 }
 
 // Render every real route under each locale. This exercises all nested boundaries.
-const routes=['page','qr-code-generator/page','barcode-generator/page','scanner/page','qr-barcode-types/page','blog/page','login/page','signup/page','not-found'];
+const routes=['page','qr-code-generator/page','barcode-generator/page','scanner/page','qr-barcode-types/page','blog/page','contact/page','faq/page','pricing/page','login/page','signup/page','not-found'];
 let renderedPages=0;
 for(const route of routes){
  const Page=require('../app/'+route+'.tsx').default;

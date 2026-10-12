@@ -180,11 +180,101 @@ Validation: production build and TypeScript; SVG viewport rendering at 320, 650,
 The supplied language selector design is implemented with round flags, native language names, a selected checkmark, keyboard navigation and a scrollable menu. Language controls in the shared header, footer and authentication pages use one preference. The header control stays accessible when the navigation collapses.
 
 - English (US), Arabic, Spanish, Spanish (Mexico), French, Indonesian, Portuguese (Brazil), Turkish, Bangla and Russian are available. Mexican Spanish includes regional wording.
-- Selecting a language updates page headings, navigation, generator controls, scanner messages, information sections, FAQs, type cards, authentication labels, accessibility labels and the browser title. All eight non-English base dictionaries contain 534 entries; Mexican Spanish inherits the complete Spanish dictionary with regional overrides. Dictionaries ship with the site and require no translation service or API key.
+- Selecting a language updates page headings, navigation, generator controls, scanner messages, information sections, FAQs, type cards, authentication labels, accessibility labels and the browser title. All eight non-English base dictionaries contain 616 entries; Mexican Spanish inherits the complete Spanish dictionary with regional overrides. Dictionaries ship with the site and require no translation service or API key.
 - The choice is saved in local storage, restored on subsequent pages and reloads, and synchronized across tabs. If storage is blocked, selection still works for the current page. English is the default. Arabic sets the document language and right-to-left direction; technical inputs remain left-to-right.
 - User-entered data, QR payloads, decoded scan results, download formats, links and generator settings are preserved. Localization operates on React display text and accessibility attributes, not on the DOM or data models. User-facing barcode validation uses the translated invalid-content message.
 - English SVG heading artwork has live translated equivalents. Long translations can wrap, and navigation collapses earlier where needed while retaining the shared header height. Previous backgrounds, direct Scanner/Types links and scanner features are preserved. Product/standard names, sample data, template artwork and illustrative screenshots keep their original content.
 
-Run `npm run test:i18n` for dictionary completeness, interpolation, all 90 page/language renders, saved-preference checks and input/result preservation checks. Validation also includes a production build, TypeScript and static export. Browser interaction and visual QA are unavailable in this environment.
+Run `npm run test:i18n` for dictionary completeness, interpolation, all 120 page/language renders, saved-preference checks and input/result preservation checks. Validation also includes a production build, TypeScript and static export. Browser interaction and visual QA are unavailable in this environment.
 
 Translation sources are in `app/lib/i18n/messages.json`, locale definitions in `locales.ts`, and Mexican Spanish overrides in `translate.ts`. New components should use the shared `Localized` boundary or `useLanguage().t`; mark user-owned display content with `translate="no"` and supply explicit option values for new controls.
+
+### Site-wide animation and hover polish
+
+Added `app/motion.css` and the shared `MotionEnhancements` component. The existing layout dimensions, navbar heights, backgrounds, generator data and translations are preserved.
+
+- Hero headings and authentication panels enter gently. Information sections, code-type cards, article cards and footer columns use short, staggered entrances as they enter the viewport. Entrances play once per mounted element, including newly selected blog cards.
+- Main buttons have hover elevation and a small pressed state. Cards lift subtly; template controls, color swatches and type selectors provide clearer feedback. Article images and tutorial play controls use a restrained zoom.
+- Navigation links underline on hover. Menus, language choices, dialogs, FAQ answers and status messages have short entrance effects; expandable controls rotate their chevrons smoothly. Fields and newsletter inputs show clear focus feedback.
+- Hover movement applies only to hover-capable pointers. Touch devices retain press feedback. Reduced-motion preferences disable movement, smooth scrolling and decorative loops; preference changes also cancel active scroll animations. Focused content is never held in an entrance animation.
+- Scroll effects use IntersectionObserver and the Web Animations API, with cleanup on navigation. Content stays visible when JavaScript or animation APIs are unavailable. No continuous animation was added, and generated QR/barcode images and the camera preview remain stationary.
+
+Validation: production build, TypeScript and static export passed; all 90 localized route renders and existing language/persistence checks passed. Static review confirms the effects do not change section sizing or translation files. Browser interaction and visual QA remain unavailable in this environment.
+
+### Resources dropdown from the supplied design
+
+Replaced the old Resources list with the two-column panel from `Group 1707496371.svg` and its placement screenshot. The desktop panel is 537 px wide, with the reference pointer, rounded white surface, soft shadow, 42 px icon areas, title/description rows and trailing arrows. The four icons are extracted from the original SVG; copy remains live text and supports all ten site languages.
+
+- Blog opens `/blog`; Contact Us opens `/contact`; FAQ opens `/faq`; Mobile App opens `/#mobile-app`. These destinations work from every page with the shared header.
+- Contact Us opens `/contact`. The contact page now provides the supplied form design and validation; message delivery requires the endpoint configuration described below.
+- Mouse hover or click opens the panel. Outside click, Escape, or leaving an unfocused hover panel closes it. Tab navigation and Arrow Down/Up from the trigger reach the items. Touch uses tap-to-toggle. The trigger exposes its expanded state, and the closed panel is hidden from navigation and assistive technology.
+- Tablet navigation contains the panel inline; phones stack the four items. Long menus scroll within the viewport. Arabic mirrors the layout and arrows. Existing navbar heights, direct Scanner/Types links and motion preferences are preserved.
+
+Implementation: `app/components/ResourcesMenu.tsx`, `app/resources-menu.css` and `public/assets/resources/`. Validation includes production build/TypeScript, 90 localized route renders, exported navigation destinations, home anchors and SVG asset rendering. Browser interaction and visual QA remain unavailable in this environment.
+
+
+### Blog page from the supplied Figma export
+
+Resources → Blog now opens the dedicated `/blog` page built from `Qr code_Blog_page.svg`. Resources stays the shared navigation label and highlights on this route. The Blog entry in its panel exposes the current-page state, and the footer Blog link also opens `/blog`.
+
+- The wave background and six article photos are extracted from the supplied SVG, with its exact image crops, and compressed as local WebP assets. The hero spans the full viewport at every width. All headings and summaries are live, translatable text.
+- At 1440 px, the shared navbar is 80 px high, the hero is 269 px high, and the catalog starts 52 px below it. The centered grid is 1204 px wide, with three 384 px cards, 354 × 232 px images, 26 px gaps and a 434 px minimum card height. Cards grow when translations need more space. The grid uses two columns at 1000 px and one at 650 px.
+- The catalog contains 18 distinct local article previews: 12 on the first page and six on the second. It retains the reference's image sequence and fills its repeated cards with related preview content. Page numbers reflect the available catalog instead of the mockup's placeholder numbers. These are preview summaries; full article pages and a CMS are not included in this design update.
+- Numbered pages and previous/next links update the displayed cards, selected state and URL (`/blog?page=2#blog-articles`). Reloading or using browser Back/Forward restores the page. Keyboard focus moves to the new list, assistive technology receives a page announcement, and modified clicks retain normal link behavior. Invalid page values fall back or clamp to the available catalog.
+- All ten languages cover the heading, every preview, pagination and accessibility labels. Arabic mirrors the pagination arrows. Card entrances, photo hover effects and button feedback reuse the existing animation system and honor reduced-motion preferences.
+- The shared footer is retained. Its FAQ link opens `/faq`, and Mobile App points to its home-page anchor so it also works from Blog. Navbar sizing, direct Scanner/Types links and the home-page blog section remain shared with the previous release.
+
+Implementation: `app/components/BlogIndex.tsx`, `app/lib/blog.ts`, `app/blog-page.css`, `app/blog/page.tsx`, and `public/assets/blog-page/`. To add content, append a unique preview in `app/lib/blog.ts` and add its title/summary to all base language dictionaries; pagination derives its page count automatically.
+
+Validation: production build, TypeScript and static export; `npm run test:blog` checks catalog uniqueness, URL boundaries, complete pagination, local assets and both pages in all ten languages; `npm run test:i18n` passes all 90 route/language renders and the existing persistence/data-preservation checks. Exported navigation links, 12 initial cards and local image references were also checked. Browser interaction and full-page visual QA remain unverified in this environment.
+
+
+### Contact Us page from the supplied Figma export
+
+Added `/contact` from `Qr code_Conatct_page.svg` (1440 × 1389). The attachment depicts a Contact Us page. Resources → Contact Us and the footer Contact Us link now open it; the Resources trigger and the matching panel item show the active route. Blog remains available at `/blog`.
+
+- The full-width wave hero uses the same source artwork and crop as Blog; the two exports contain identical background images. The envelope illustration retains its transparency, and the three support icons are extracted as vectors from the contact SVG.
+- Desktop measurements follow the reference: shared 80 px navbar, 269 px hero, 42 px gap above the form, 1328 px content width, approximately 934 px form and 352 px support column, a 42 px column gap, 56 px inputs, 148 px message area and a 52 px button. The shared footer begins near the reference's 1035 px position. At 1000 px the support panel moves below the form; at 650 px the fields stack and the submit button spans the card.
+- Corrected “Your Massage” to “Your Message” and replaced the hero's implementation note with visitor-facing contact copy. The form labels, helper copy, validation, request states and support panel work in all ten site languages. Arabic follows the site's RTL layout; user-entered content remains untouched by language changes.
+- Required fields reject whitespace-only names/messages and malformed email addresses. Limits are 120 characters for names, 254 for emails and 5000 for messages. Errors associate with the relevant input, and submitting an invalid form focuses the first invalid field. Network failure or timeout preserves the visitor's message.
+- Existing entrance effects cover the hero, form and support panel. The submit button and support icons include restrained hover feedback; fields have clear focus states. All movement honors reduced-motion settings. Navbar dimensions remain shared.
+
+The supplied design explicitly leaves message delivery for a second phase. No recipient, email service, CRM or backend endpoint has been supplied. By default the page displays that delivery is unavailable, validates the fields, retains the message and makes no network request. It never claims an unconfigured message was sent. No message is saved to browser storage.
+
+To connect delivery, set `NEXT_PUBLIC_CONTACT_ENDPOINT` to your contact API URL before running `npm run build`. This is a public URL, not an API secret. The existing static export does not host an API: use your separately deployed service or a host function, and keep provider credentials on that server. The adapter in `app/lib/contact.ts` posts JSON with `name`, `email` and `message`, with no cookies. A cross-origin service must accept the site's origin and JSON requests. The endpoint must validate input and return a successful HTTP status with `{ "accepted": true }` only after accepting the message. Error responses, missing acceptance, an HTML fallback, and connection errors show unconfirmed delivery rather than success. The UI blocks duplicate submissions, times out after 20 seconds and cancels a pending request on navigation.
+
+Implementation: `app/contact/page.tsx`, `app/components/ContactPageContent.tsx`, `app/lib/contact.ts`, `app/contact-page.css`, and `public/assets/contact/`.
+
+Validation: production build, TypeScript and static export; `npm run test:contact` checks validation boundaries, no requests without configuration, explicit acceptance, network/HTML failure handling, payload preservation and ten localized contact renders; `npm run test:i18n` covers 100 route/language renders and all 585 keys per base locale; the Blog pagination checks continue to pass. Network tests use mocked responses and send no real messages. Browser interaction and visual QA remain unverified in this environment.
+
+
+### Dedicated FAQ page with QR Code and Barcode tabs
+
+Added `/faq` from both `Qr code_ FAQ_page.svg` and `Barcode_FAQ_page.svg`. The existing FAQ item in Resources and the footer now opens this page alongside Blog and Contact Us. Resources stays the shared navbar label, and its FAQ entry indicates the active route. Scanner and QR & Barcode Types remain direct links.
+
+- The two designs are implemented as categories on one page: **QR Code Basics** and **Barcode Basics**, each with seven questions. The first answer opens when entering a category. Clicking another question opens that answer; clicking it again closes it. Only the current category's open answer is exposed to assistive technology.
+- The supplied exports differ by about 11 px in vertical placement. Both tabs use the same centered 1107 px layout so switching category does not move the heading or navbar. Desktop spacing follows the QR export: 80 px above the pale blue section, 40 px heading, 20 px category labels, approximately 80 px closed rows, 18 px gaps, 198 px minimum expanded cards, and 80 px before the shared footer. Expanded cards grow for longer answers and translations. Smaller screens use reduced spacing and wrapping text, with 44 px minimum tab targets on phones.
+- `/faq` selects QR Code Basics. `/faq?tab=barcode` selects Barcode Basics after hydration. Switching tabs updates the URL; reload and browser Back/Forward restore the category. Embedded FAQ sections on the home and generator pages retain their local selection and do not change their URLs.
+- Tabs support Left/Right, Home and End. Question buttons support Up/Down, Home and End for focus, and native Enter/Space activation. Expanded state, tab selection and panel/answer relationships use ARIA attributes; inactive panels are hidden. Focus outlines remain visible within the cards.
+- All questions, answers and labels use the existing ten-language catalog. A complete heading translation also fixes duplicated words in some previously split FAQ headings. Arabic uses the shared right-to-left layout. Existing answer entrances, chevron rotation and hover feedback honor reduced-motion preferences.
+- FAQ data now lives once in `app/lib/faq.ts` and is shared with embedded sections. Answers retain the site's existing accurate feature descriptions: this version generates static codes and does not offer account storage, editable dynamic codes or a scan analytics dashboard. The reference's unimplemented service claims were not added as product promises.
+
+Implementation: `app/faq/page.tsx`, `app/faq-page.css`, `app/components/FAQ.tsx`, and `app/lib/faq.ts`.
+
+Validation: clean production build, TypeScript and static export; `npm run test:faq` checks all 14 question transitions, category reset/preservation, URL parsing, keyboard focus destinations, ARIA relationships, Resources destinations and 40 localized embedded/full-page renders. `npm run test:i18n` passes 110 route/language renders and all 586 keys per base locale. Export inspection verifies the new page, initial visible answer, tabs and FAQ links on all main routes. Browser interaction and visual QA remain unverified in this environment.
+
+
+### Pricing page and navbar destination
+
+Added `/pricing` from `Qr code_pricing_page.svg` (1440 × 2821). Pricing in the shared navbar and footer now opens this page, with the active navbar state. The same shared header preserves its 80 px desktop and 68 px mobile height across routes.
+
+- Three cards follow the reference: Basic at **$9.0/month**, Advanced at **$15.40/month** with the Most Popular ribbon, and Professional at **$9.04/month**, all in USD and billed annually. The Professional amount is lower than Basic and Advanced in the source SVG; it has been retained exactly, not corrected or treated as a verified commercial offer. Update the central `app/lib/pricing.ts` data when final prices are approved.
+- The hero uses the background artwork extracted from the supplied SVG, with full-width coverage. Desktop sizing uses an approximately 800 px hero, 40 px title, centered 1080 px card grid, 28 px gaps, 532 px cards and a raised Advanced ribbon. The source's slightly off-center card positions are centered consistently with the site. Cards grow for longer translations and stack at 750 px. Testimonials use the original decorative background and a three-card static layout; other routes retain their existing carousel.
+- The two design subtitles contain implementation notes about a frontend/backend handoff. The hero instead uses customer-facing plan copy. The reused testimonial content remains explicitly labeled as samples. The page marks paid plans and premium features as coming soon; it does not imply that dynamic codes, analytics, teams, bulk generation, or white-label services are currently provisioned.
+- Each **Get Started** link opens `/contact?plan=basic`, `/contact?plan=advanced`, or `/contact?plan=professional`. Contact Us prefills a localized, editable enquiry for that specific plan, using the saved language. Only recognized plan IDs are accepted. A typed message is not overwritten. Opening a plan link does not make a network request, create an account, charge a payment, or activate a subscription. The existing contact endpoint configuration and explicit delivery acknowledgement are still required to send enquiries.
+- The shared QR Code / Barcode FAQ provides working category tabs, collapsible answers and keyboard controls. Pricing reuses the FAQ page's measured card styles while retaining local tab state. Plan labels, descriptions, features, availability note, accessible CTA labels and enquiry text use all ten existing languages (616 keys per base locale). Dollar prices remain USD across languages.
+- Card entrances, hover elevation and CTA feedback respect reduced-motion preferences. Keyboard focus remains visible, FAQ ARIA relationships are preserved, and mobile cards, tabs and buttons stay usable without horizontal scrolling.
+
+Implementation: `app/pricing/page.tsx`, `app/components/PricingPlans.tsx`, `app/lib/pricing.ts`, `app/pricing-page.css`, and `public/assets/pricing-page/`, with shared navigation, contact-prefill and testimonial updates.
+
+Validation: clean production build, TypeScript and static export; `npm run test:pricing` checks the reference prices, 30 localized plan enquiries, safe query parsing, navigation and all three CTA destinations, ten pricing renders, FAQ relationships, localization, and preservation of the existing carousel. `npm run test:contact`, `npm run test:faq`, and `npm run test:i18n` pass; the language suite covers 120 route/language renders. Static export inspection checks Pricing links and assets across nine main routes. No real contact messages or payments are sent by tests. Browser interaction and visual QA remain unverified in this environment.

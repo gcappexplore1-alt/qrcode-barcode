@@ -11,7 +11,11 @@
     "test:scanner": "node tests/scanner.test.cjs",
     "prebuild": "node scripts/prepare-scanner.mjs",
     "predev": "node scripts/prepare-scanner.mjs",
-    "test:i18n": "node tests/i18n.test.cjs"
+    "test:i18n": "node tests/i18n.test.cjs",
+    "test:blog": "node tests/blog.test.cjs",
+    "test:contact": "node tests/contact.test.cjs",
+    "test:faq": "node tests/faq.test.cjs",
+    "test:pricing": "node tests/pricing.test.cjs"
   },
   "dependencies": {
     "bwip-js": "^4.11.4",

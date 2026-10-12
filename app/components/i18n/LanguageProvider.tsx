@@ -11,7 +11,7 @@ const pageTitles:Record<string,string>={
  '/barcode-generator':'Free Barcode Generator — Create & Customize',
  '/scanner':'QR Code & Barcode Scanner — Scan Online',
  '/qr-barcode-types':'QR & Barcode Types — Choose Your Code',
- '/blog':'Blog', '/login':'Sign In', '/signup':'Sign Up'
+ '/blog':'QR code articles', '/contact':'Contact Us', '/faq':'Frequently Asked Questions', '/pricing':'Pricing', '/login':'Sign In', '/signup':'Sign Up'
 };
 export function LanguageProvider({children,initialLocale='en'}:{children:ReactNode;initialLocale?:Locale}){
  const [locale,setLanguage]=useState<Locale>(initialLocale);
