@@ -1,5 +1,5 @@
 /* Barcode reference: 1440 × 7261. Scoped to protect the home and QR pages. */
-.barcode-generator-page{background:#f9f9f9 url('/assets/barcode-reference/page-background.svg') center top/1440px 7261px no-repeat}
+.barcode-generator-page{background:#f9f9f9}
 .barcode-generator-page .home-header{height:90px}
 .barcode-generator-page .barcode-generator{padding:0;background:url('/assets/barcode-reference/hero-background.svg') center top/100% 1118px no-repeat}
 .barcode-generator-page .generator-heading{height:143px;margin:0;padding:30px 20px 24px;display:flex;flex-direction:column;align-items:center;gap:15px}
