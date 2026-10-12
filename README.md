@@ -120,11 +120,27 @@ Visual browser QA and live camera permission/device tests were unavailable in th
 implementation environment and still need to be checked on target devices.
 Existing service placeholders documented above remain applicable.
 
-### Scanner sizing and spacing update
+### Scanner Figma sizing correction
 
-- Aligned the scanner card with the homepage's 1324 px maximum content width and desktop, tablet and mobile gutters.
-- Matched the homepage heading scale (48 / 40 / 34 / 28 px), introductory text, header-to-heading spacing and heading-to-panel gap.
-- Standardized scanner control sizes, panel padding and information-section spacing; information rows stack on phones.
-- Removed scanner-specific banner, FAQ and footer sizing so those shared components inherit the homepage layout. Removed the duplicate FAQ item margin.
+The scanner now follows the supplied `Auto QR+ barcode_Scanner_page (1).svg`
+1440 × 3819 artboard. This supersedes the earlier homepage-width adaptation.
+The navbar Scanner item remains a direct link without a dropdown.
 
-Validation: production build, TypeScript and static export passed. This update changes only scanner CSS and this documentation. Browser visual checks were unavailable in the implementation environment.
+At the desktop reference width:
+
+| Element | Reference dimensions / position |
+| --- | --- |
+| Scanner card | 886 × 616 px, x=277, y=302 |
+| Mode tabs | 809 × 91 px, with 244 × 62 px buttons |
+| Image upload area | 759 × 285 px, x=331, y=501 |
+| Camera button | 759 × 67 px, x=331, y=820 |
+| Information photo frames | 510.287 × 366.679 px |
+| App banner | Starts at y=1928, 380.394 px tall |
+| FAQ | 1107 px content width; 80 px closed cards, 18 px gaps |
+
+- Restored Poppins headings and body copy from the design, plus locally bundled Roboto for scanner controls and FAQs. Roboto 5.2.8 assets include their license.
+- Used the phone artwork directly from the supplied SVG, only on the scanner page.
+- Scoped all desktop dimensions to this page. Tablet and phone layouts reflow rather than stretching the desktop scanner panel or fixing the full page height.
+- Preserved scanning, uploads, result actions and the shared components used by the other pages.
+
+Validation: production build, TypeScript, static export, SVG asset references and a CSS measurement audit. Browser visual QA is unavailable in this environment, so rendered pixel matching and live device layout still need visual verification.
