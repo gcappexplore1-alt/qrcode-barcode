@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "test:templates": "node tests/category-templates.test.cjs",
-    "test:barcode-spacing": "node tests/barcode-spacing.test.cjs"
+    "test:barcode-spacing": "node tests/barcode-spacing.test.cjs",
+    "test:scanner": "node tests/scanner.test.cjs",
+    "prebuild": "node scripts/prepare-scanner.mjs",
+    "predev": "node scripts/prepare-scanner.mjs"
   },
   "dependencies": {
     "bwip-js": "^4.11.4",
@@ -15,7 +18,8 @@
     "next": "16.3.4",
     "qrcode": "1.5.4",
     "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react-dom": "19.2.6",
+    "zxing-wasm": "3.1.4"
   },
   "devDependencies": {
     "@types/node": "22.19.19",

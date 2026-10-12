@@ -86,3 +86,35 @@ Validation: production build/TypeScript passed; browser screenshots checked for 
 - Both barcode pages still use the same `BarcodeGenerator` component; customization and downloads remain shared.
 
 Validation: production build and TypeScript passed. Audited all six routes (home, QR generator, barcode generator, blog, login and signup) at 1920, 1440, 768, 390 and 320 px: no horizontal document overflow, broken images or browser errors. Visually reviewed desktop and phone screenshots, and checked the revised step artwork and background boundaries. This pass covers layout and background presentation; existing service limitations above still apply.
+
+
+## QR + Barcode Scanner page (October 2026)
+
+Open `/scanner` for the supplied 1440 × 3819 scanner design. Direct links
+`/scanner?mode=qr` and `/scanner?mode=barcode` select the corresponding tab.
+The header Scanner menu and footer scan links now open this page.
+
+- Uses the supplied hero background and QR/barcode photos, exported as compact WebP assets.
+- Responsive three-mode scanner with image upload, drag-and-drop and camera capture.
+- PNG, JPEG and WebP input, up to 10 MB and 32 megapixels; images are resized to a maximum 2048-pixel edge for decoding.
+- Locally bundled ZXing WebAssembly decoder loads when scanning starts. The page does not load the generator's template data or send images/camera frames to a server.
+- Supports QR codes, Code 128, Code 39, Code 93, EAN-8/13, UPC-A/E, ITF, Codabar, Data Matrix, PDF417 and Aztec, among other decoder-supported types.
+- Results include copy, save as text, scan again and explicit HTTP/HTTPS link opening. Scanned links never open automatically. Retail identifiers may be returned in their normalized GTIN form (for example, UPC-E expanded to EAN-13 digits).
+- Camera scanning requires HTTPS or localhost and browser permission. Camera tracks stop on cancellation, mode changes, successful scans, page hiding and unmount. Permission and missing-camera errors offer image upload as an alternative.
+- The shared header, app banner, FAQ and footer are reused. Scanner-specific layout rules are isolated in `app/scanner-page.css`.
+- Code 93 generation now includes its required check characters so codes created here can be decoded.
+
+Run `npm ci`, then `npm run dev` and visit `http://localhost:3000/scanner`.
+For static hosting: `npm run build`, then serve the `out` directory. Local
+static preview: `node scripts/serve-static.mjs`. Serve `.wasm` files with
+`application/wasm`; the included static preview server handles this.
+The `predev` and `prebuild` scripts copy the decoder binary matching the pinned
+`zxing-wasm` version and its license into public assets.
+
+Validation for this update: production build and TypeScript, scanner fixture tests
+(`npm run test:scanner`), existing category-template tests and barcode-spacing
+tests. Scanner tests decode actual generated images, including rotated and
+inverted codes, and check mode filtering, invalid uploads and unsafe link rejection.
+Visual browser QA and live camera permission/device tests were unavailable in the
+implementation environment and still need to be checked on target devices.
+Existing service placeholders documented above remain applicable.
