@@ -77,11 +77,16 @@ test('eye palette changes only eye color and survives later foreground edits',()
  assert.equal(design.eyeColor,design.foreground);
 });
 
-test('independent eye color preserves shapes, foreground gradients and template artwork',()=>{
+test('independent eye color preserves shapes, foreground gradients and template artwork',async()=>{
  const {eyeStyles}=require('../app/lib/eye-renderer.ts');
  const {templateDesign}=require('../app/lib/qr-design.ts');
  const {templatePresets}=require('../app/lib/template-presets.ts');
- const {categoryTemplatePresets}=require('../app/lib/category-template-presets.ts');
+ const {categoryTemplatePresets,loadCategoryTemplate}=require('../app/lib/category-template-presets.ts');
+ const originalFetch=global.fetch;
+ try{
+  global.fetch=async url=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../public',url),'utf8'))});
+  for(let index=21;index<=120;index++)await loadCategoryTemplate(index);
+ }finally{global.fetch=originalFetch;}
  const color='#123abc';
  const stripPaint=svg=>svg.replace(/\b(?:fill|stroke)="[^"]*"/g,'');
  for(const eyes of eyeStyles){

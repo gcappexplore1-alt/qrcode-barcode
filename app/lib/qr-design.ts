@@ -4,7 +4,7 @@ import {renderLogo} from './logo-renderer';
 import {backgroundImages} from './background-images';
 import {renderTemplateQR} from './template-renderer';
 import {templatePresets} from './template-presets';
-import {categoryTemplatePresets} from './category-template-presets';
+import {categoryTemplatePresets,hasCategoryTemplate} from './category-template-presets';
 import {uploadedTemplateFiles,uploadedCategoryTemplates,uploadedTemplateColors} from './category-templates';
 import QRCode from 'qrcode';
 export type Shape='square'|'rounded'|'circle';
@@ -25,6 +25,7 @@ const xml=(s:string)=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;
 const hex=(s:string,fallback:string)=>/^#[\da-f]{6}$/i.test(s)?s:fallback;
 export function renderQR(payload:string,design:QRDesign,width=1000):string{
  const template=design.templateIndex||0;
+ if(hasCategoryTemplate(template)&&!categoryTemplatePresets[template])throw new Error('Load the selected category template before rendering.');
  if(templatePresets[template]||categoryTemplatePresets[template])return renderTemplateQR(payload,design,width);
  const qr=QRCode.create(payload,{errorCorrectionLevel:'H'}),n=qr.modules.size,unit=10,margin=40,body=(n+8)*unit,hasCaption=Boolean(design.caption.trim()),height=body+(hasCaption?design.fontSize+32:0),fg=hex(design.foreground,'#000000'),bg=hex(design.background,'#ffffff'),eye=hex(design.eyeColor,fg),frame=hex(design.frameColor,'#2276ff');
  const fgPaint=design.foregroundGradient?'url(#qr-fg)':fg,bgPaint=design.backgroundGradient?'url(#qr-bg)':bg;
