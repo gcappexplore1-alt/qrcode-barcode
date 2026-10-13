@@ -13,6 +13,7 @@ import "./blog-page.css";
 import "./contact-page.css";
 import "./faq-page.css";
 import "./pricing-page.css";
+import "./auth-functional.css";
 import MotionEnhancements from "./components/MotionEnhancements";
 import {LanguageProvider} from "./components/i18n/LanguageProvider";
 export const metadata: Metadata = {title: "QR & Barcode — Generator", description: "Create, Scan, And Manage QR Codes And Barcodes — All In One Place", icons: {icon: "/assets/svg/Group 42404.svg"}};

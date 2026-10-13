@@ -1,3 +1,5 @@
+> Authentication update: email/password, Google/Facebook/Apple OAuth, account/logout and password recovery are now integrated through Supabase. Follow [AUTH_SETUP.md](AUTH_SETUP.md) to configure your project, email delivery and providers. Earlier design-preview auth limitations below describe the previous version.
+
 # QR & Barcode Generator — Updated Homepage
 
 ## Run locally

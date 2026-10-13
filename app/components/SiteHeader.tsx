@@ -3,6 +3,7 @@ import {Localized} from './i18n/LanguageProvider';
 import {useState} from 'react';
 import LanguageSelector from './i18n/LanguageSelector';
 import ResourcesMenu from './ResourcesMenu';
+import AccountControls from './AccountControls';
 import {Menu,X} from 'lucide-react';
 
 type Page = 'home'|'qr'|'barcode'|'scanner'|'types'|'blog'|'contact'|'faq'|'pricing';
@@ -18,7 +19,7 @@ export default function SiteHeader({active='home'}:{active?:Page}) {
    <a href="/qr-barcode-types" className={'home-nav-link'+(active==='types'?' is-active':'')} aria-current={active==='types'?'page':undefined} onClick={close}>QR &amp; Barcode Types</a>
    <ResourcesMenu active={active==='blog'||active==='contact'||active==='faq'?active:undefined} onNavigate={close}/>
    <a href="/pricing" className={'home-nav-link'+(active==='pricing'?' is-active':'')} aria-current={active==='pricing'?'page':undefined} onClick={close}>Pricing</a>
-   <div className="home-account"><a className="home-sign-in" href="/login">Sign In</a><a className="home-sign-up" href="/signup">Sign Up</a></div>
+   <AccountControls/>
   </nav>
   <LanguageSelector/>
  </div></header></>}</Localized>;

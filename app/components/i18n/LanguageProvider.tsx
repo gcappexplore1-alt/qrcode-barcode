@@ -7,6 +7,7 @@ import {localizeTree} from '../../lib/i18n/localize-tree';
 const LanguageContext=createContext({locale:'en' as Locale,setLocale:(_locale:Locale)=>{},t:(text:string)=>text});
 const pageTitles:Record<string,string>={
  '/':'QR & Barcode — Generator',
+ '/account':'My Account', '/auth/callback':'Completing sign in', '/forgot-password':'Forgot your password?', '/reset-password':'Set a new password',
  '/qr-code-generator':'Free QR Code Generator — Create & Customize',
  '/barcode-generator':'Free Barcode Generator — Create & Customize',
  '/scanner':'QR Code & Barcode Scanner — Scan Online',

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/serve-static.mjs",
     "test:templates": "node tests/category-templates.test.cjs",
     "test:barcode-spacing": "node tests/barcode-spacing.test.cjs",
     "test:scanner": "node tests/scanner.test.cjs",
@@ -15,9 +15,14 @@
     "test:blog": "node tests/blog.test.cjs",
     "test:contact": "node tests/contact.test.cjs",
     "test:faq": "node tests/faq.test.cjs",
-    "test:pricing": "node tests/pricing.test.cjs"
+    "test:pricing": "node tests/pricing.test.cjs",
+    "test:auth": "node tests/auth.test.cjs",
+    "test:auth-browser": "node tests/auth-browser.test.cjs",
+    "test:qr": "node --test tests/qr.test.cjs",
+    "test:seo": "node --test tests/seo.test.cjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.117.3",
     "bwip-js": "^4.11.4",
     "lucide-react": "1.31.0",
     "next": "16.3.4",
@@ -31,6 +36,7 @@
     "@types/qrcode": "1.5.5",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "playwright": "1.64.0",
     "typescript": "5.9.3"
   }
 }
