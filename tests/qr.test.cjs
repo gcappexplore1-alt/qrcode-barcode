@@ -74,7 +74,7 @@ test('eye palette changes only eye color and survives later foreground edits',()
  assert.equal(design.eyes,'rounded');
  control('Reset eye color').props.onClick();
  assert.equal(design.eyeColorEdited,false);
- assert.equal(design.eyeColor,design.foreground);
+ assert.equal(design.eyeColor,defaultDesign.eyeColor);
 });
 
 test('independent eye color preserves shapes, foreground gradients and template artwork',async()=>{
@@ -117,4 +117,32 @@ test('QR codes with custom eyes remain scannable with independent foreground col
   const decoded=await readBarcodes({data:new Uint8ClampedArray(data),width:info.width,height:info.height,colorSpace:'srgb'},{formats:['QRCode'],tryHarder:true});
   assert(decoded.some(result=>result.isValid&&result.text===payload),eyes+' did not decode');
  }
+});
+
+test('every template has one live QR layer and independent editable parts',async()=>{
+ const {templateDesign}=require('../app/lib/qr-design.ts');
+ const {loadCategoryTemplate}=require('../app/lib/category-template-presets.ts');
+ const sharp=require('sharp');
+ const {readBarcodes}=require('zxing-wasm/reader');
+ const originalFetch=global.fetch;
+ try {
+  global.fetch=async url=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../public',url),'utf8'))});
+  for(let i=0;i<=120;i++){
+   await loadCategoryTemplate(i);
+   const design=templateDesign(i),payload='https://example.com';
+   const original=renderQR(payload,design,800);
+   const recolored=renderQR(payload,{...design,foreground:'#18304f',foregroundEdited:true},800);
+   if(i){
+    assert.equal((original.match(/data-qr-layer="live"/g)||[]).length,1,'Template '+i);
+    assert(original.includes('mask="url(#template-art-mask)"'));
+    const eyes=svg=>svg.match(/<svg x="[\s\S]*?<\/svg>/g)||[];
+    assert.deepEqual(eyes(recolored),eyes(original),'Foreground changed original eyes in '+i);
+   }
+   const edited={...design,dots:'square',dotsEdited:true,eyes:'square',eyesEdited:true,foreground:'#000000',foregroundEdited:true,eyeColor:'#000000',eyeColorEdited:true,background:'#ffffff',backgroundEdited:true};
+   const svg=renderQR(payload,edited,800);
+   const {data,info}=await sharp(Buffer.from(svg)).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+   const decoded=await readBarcodes({data:new Uint8ClampedArray(data),width:info.width,height:info.height,colorSpace:'srgb'},{formats:['QRCode'],tryHarder:true,tryInvert:true});
+   assert(decoded.some(result=>result.isValid&&result.text===payload),'Edited template '+i+' did not decode');
+  }
+ }finally{global.fetch=originalFetch;}
 });

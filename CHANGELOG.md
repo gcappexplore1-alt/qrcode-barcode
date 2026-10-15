@@ -1,3 +1,14 @@
+## 2026-10-15 — QR preview and independent editing
+
+- Isolated static decoration from the QR slot and render exactly one live QR layer.
+- Rebuilt template backgrounds separately, retaining gradients and built-in center logos.
+- Repaired missing finder outlines from source SVGs; replaced misidentified floral artwork in template 92 with QR eyes.
+- Foreground color no longer changes eye color. Eye/dot shape edits retain the selected template.
+- Custom gradients paint across the QR area; edited eye cutouts reveal the actual background.
+- Refreshed content-hashed category assets to prevent stale template data.
+- Validation: production build, template loading/hash tests, all 100 category template tests, and decoding all 121 choices with customized square dots/eyes and black-on-white colors passed.
+- Decorative default presets are not universally scan-safe; always test the final chosen design and payload before printing.
+
 # Review fixes
 
 1. Kept template selection when modifying colors, captions, logos, dots and eyes.

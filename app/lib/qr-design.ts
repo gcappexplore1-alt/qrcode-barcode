@@ -36,7 +36,7 @@ export function renderQR(payload:string,design:QRDesign,width=1000):string{
  if(design.backgroundImage)bits.push(`<image href="${backgroundImages[design.backgroundImage]||''}" x="${margin}" y="${margin}" width="${n*unit}" height="${n*unit}" opacity="0.12"/>`);
  if(design.frame)bits.push(`<rect x="5" y="5" width="${body-10}" height="${height-10}" rx="12" fill="none" stroke="${frame}" stroke-width="8"/>`);
  for(let r=0;r<n;r++)for(let c=0;c<n;c++){if(!qr.modules.get(r,c)||inEye(r,c))continue;const x=margin+c*unit,y=margin+r*unit;const style=qr.modules.isReserved(r,c)?'square':design.dots;bits.push(renderDot(style,x,y,unit,fgPaint,r,c,(rr,cc)=>rr>=0&&cc>=0&&rr<n&&cc<n&&Boolean(qr.modules.get(rr,cc))&&!inEye(rr,cc)));}
- for(const [r,c] of [[0,0],[0,n-7],[n-7,0]])bits.push(renderEye(design.eyes,margin+c*unit,margin+r*unit,unit,design.eyeColorEdited?eye:design.foregroundEdited?fgPaint:eye,bgPaint));
+ for(const [r,c] of [[0,0],[0,n-7],[n-7,0]])bits.push(renderEye(design.eyes,margin+c*unit,margin+r*unit,unit,eye,bgPaint));
  bits.push(renderLogo(design,margin,margin,n*unit));
  if(hasCaption){bits.push(`<text x="${body/2}" y="${body+design.fontSize+8}" text-anchor="middle" font-family="${xml(design.fontFamily)}" font-size="${Math.min(design.fontSize,body*.85/Math.max(1,design.caption.length)*1.6)}" font-weight="600" fill="${hex(design.captionColor,'#ef3998')}">${xml(design.caption.slice(0,40))}</text>`);}
 
